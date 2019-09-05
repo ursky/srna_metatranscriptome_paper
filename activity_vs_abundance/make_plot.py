@@ -79,7 +79,7 @@ def load_taxa(filename):
 	return taxa
 
 
-def get_averages(srnas, contig_abundances, srna_abundances, timepoint, taxa):
+def get_averages(srnas, contig_abundances, srna_abundances, timepoint, taxa, labels):
 	data = {}
 	print "calculating averages for "+timepoint
 	for srna in srnas:
@@ -95,7 +95,6 @@ def get_averages(srnas, contig_abundances, srna_abundances, timepoint, taxa):
 	out_contigs=[]
 	out_srnas=[]
 	colors=[]
-	labels={"Euryarchaeota":"blue", "Bacteroidetes":"red", "Cyanobacteria":"cyan", "Other":"black"}
 	
 	for srna in data:
 		contig = srnas[srna]
@@ -146,6 +145,7 @@ font = {'family': 'arial', 'weight': 'normal', 'size': 12}
 plt.rc('font', **font)
 fig, axs = plt.subplots(2, 4, figsize=(12,6))
 times={"1":"1am","9":"9am","13":"1pm","17":"5pm"}
+labels={"Euryarchaeota":"magenta", "Bacteroidetes":"gold", "Cyanobacteria":"cyan", "Other":"black"}
 for y,timepoint in enumerate(["1","9","13","17"]):
 	for x,srna_type in enumerate([intergenic, antisense]):
 		print x, y
@@ -170,12 +170,11 @@ for y,timepoint in enumerate(["1","9","13","17"]):
 		if x==1:
 			ax.set_xlabel("Total contig activity (tpm)")
 
-		contig_averages,srna_average,colors = get_averages(srna_type, contig_abundances, srna_abundances, timepoint, taxa)
-		ax.scatter(contig_averages, srna_average, c=colors, alpha=0.1, s=5)
+		contig_averages,srna_average,colors = get_averages(srna_type, contig_abundances, srna_abundances, timepoint, taxa, labels)
+		ax.scatter(contig_averages, srna_average, c=colors, alpha=0.4, s=8)
 
 
 print "making legend..."
-labels={"Euryarchaeota":"blue", "Bacteroidetes":"red", "Cyanobacteria":"cyan", "Other":"black"}
 ax = fig.add_axes([0.0, 0.0, 1, 0.05])
 ax.axis("off")
 legend_elements = [Patch(facecolor=labels["Euryarchaeota"], edgecolor='k', label="Euryarchaeota", linewidth=1),
