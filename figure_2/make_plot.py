@@ -351,11 +351,13 @@ labels={"Euryarchaeota":"magenta", "Bacteroidetes":"gold", "Cyanobacteria":"cyan
 ##############  PLOTTING UPPER PANELS ###############
 ax = axs[0,0]
 plot_antisense("2016vs2017_all_asRNA_and_genes_normalized_TPM_table.txt", "ALL", taxa, labels, ax)
-ax.set_title("Gene vs asRNA expression")
+#ax.set_title("Gene vs asRNA expression")
+ax.set_title(" ")
 
 ax = axs[0,1]
 plot_correlations("2016vs2017_all_asRNA_and_genes_normalized_TPM_table.txt", "ALL", taxa, labels, contig_abundances, ax)
-ax.set_title("Gene vs asRNA correlation")
+#ax.set_title("Gene vs asRNA correlation")
+ax.set_title(" ")
 
 ##############  PLOTTING LOWER PANELS ###############
 
@@ -375,10 +377,12 @@ for y,srna_type in enumerate(["intergenic", "antisense"]):
 	ax.set_xlabel("Total contig activity (tpm)")
 	if srna_type=="intergenic":
 		contig_averages,srna_average,colors = get_averages(contig_abundances, intergenic, "ALL", taxa, labels)
-		ax.set_title("itsRNA vs total activity")
+		#ax.set_title("itsRNA vs total activity")
+		ax.set_title(" ")
 	if srna_type=="antisense":
 		contig_averages,srna_average,colors = get_averages(contig_abundances, antisense, "ALL", taxa, labels)
-		ax.set_title("asRNA vs total activity")
+		#ax.set_title("asRNA vs total activity")
+		ax.set_title(" ")
 
 	ax.scatter(contig_averages, srna_average, c=colors, alpha=0.4, s=8)
 
@@ -402,7 +406,8 @@ axs[1,1].annotate("D", xy=(-0.19, 1.05), xycoords="axes fraction", fontsize=20)
 
 plt.tight_layout(w_pad=0.5, h_pad=1)
 plt.subplots_adjust(bottom=0.15)
-plt.savefig("figure.png", dpi=600)
+plt.savefig("Fig_2.png", dpi=300)
+plt.savefig("Fig_2.eps")
 
 
 
